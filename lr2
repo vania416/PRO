@@ -1,0 +1,38 @@
+#include <mpi.h>
+#include <iostream>
+#include <string.h>
+використання простору імен std;
+int main (int argc, char * argv [])
+{
+ int повідомлення;
+ інт ранг;
+ розмір int;
+ Статус MPI_Status;
+ int TAG = 0;
+ MPI_Init (& argc, & argv);
+ MPI_Comm_rank (MPI_COMM_WORLD, & rank);
+ MPI_Comm_size (MPI_COMM_WORLD, & розмір);
+ якщо (розмір == 1)
+ cout << "Мало процесів";
+ ще
+ { 
+ якщо (ранг == 0)
+ {
+ cout << "ввести число" << endl;
+ cin >> повідомлення;
+ for (int i = 1; i <розмір; i + = 2) {
+ повідомлення * = 2;
+ MPI_Ssend (& повідомлення, 1, MPI_INT, i, TAG,
+MPI_COMM_WORLD);
+ }
+ }
+ ще
+ {
+ MPI_Recv (& повідомлення, 1, MPI_INT, 0, TAG,
+MPI_COMM_WORLD, & статус);
+ cout << "Rank =" << rank << "; Message =" << message << endl;
+ }
+ }
+ MPI_Finalize ();
+ повернути 0;
+}
