@@ -1,0 +1,27 @@
+  
+#include <stdio.h>
+#include <omp.h>
+int main (int argc, char * argv [])
+{
+int n;
+#pragma omp паралельне приватне (n)
+ {
+ n = omp_get_thread_num ();
+ #pragma omp розділи
+ {
+#pragma omp розділ
+ {
+ printf ("1 секція, процес% d \ n", n);
+ }
+#pragma omp розділ
+ {
+ printf ("2 секція, процес% d \ n", n);
+ }
+#pragma omp розділ
+ {
+ printf ("3 секція, процес% d \ n", n);
+ }
+ }
+ printf ("Paralel'na diljanka, process% d \ n", n);
+ }
+}
